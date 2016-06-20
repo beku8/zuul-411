@@ -1,0 +1,20 @@
+zuul:
+  ignoredServices: '*'
+  routes:
+    rs: /api/rs/**
+    httpbin: 
+      path: /api/httpbin/**
+      url: http://httpbin.org
+
+      
+logging:
+  level:
+    org.apache.http: DEBUG
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    appname: z411
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
