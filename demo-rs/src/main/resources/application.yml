@@ -4,7 +4,24 @@ eureka:
     leaseRenewalIntervalInSeconds: 10
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+      
       
 server:
   port: 8081
+  
+---
+spring:
+  profiles: cloud
+  
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    hostname: ${vcap.application.uris[0]}
+    instanceId: ${vcap.application.instance_id}
+    nonSecurePort: 80
+    metadata-map:
+      discoveryId: ${discovery.id:dev}
+  client:
+    serviceUrl: 
+      defaultZone: ${EUREKA_URL}

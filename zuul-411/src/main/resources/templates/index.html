@@ -6,41 +6,36 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js" />
     <script type="text/javascript">
     var data = {"foo":"bar"}
-    function sendToServer(){
-		$.ajax({
-		    type: "post",
-		    url: "/api/rs/post",
-		    contentType: "application/json",
-		    data: JSON.stringify(data),
-		    success: function(result) {
-		    	console.log('result', result)
-		    },
-		    
-		});
+    function sendToServer(method, endpoint){
+    	var req = {
+  		    type: method,
+  		    url: "/api/" + endpoint + "/" + method,
+  		    contentType: "application/json",
+  		    success: function(result) {
+  		    	console.log('result', result)
+  		    },
+  		    
+  		}
+    	if (method !== 'get'){
+    		req.data = JSON.stringify(data);
+    	}
+		$.ajax(req);
     }
-    
-    function sendToDirectServer(){
-		$.ajax({
-		    type: "post",
-		    url: "/api/httpbin/post",
-		    contentType: "application/json",
-		    data: JSON.stringify(data),
-		    success: function(result) {
-		    	console.log('result', result)
-		    },
-		    
-		});
-    }
- 
     </script>
     <body>
     	<div>
-    		this button will post to eureka clients: 
-        	<button onclick="sendToServer()">Post to resource server</button>
+    		these buttons will post to eureka clients (/api/rs): 
+    		<button onclick="sendToServer('get', 'rs')">Get to resource server</button>
+        	<button onclick="sendToServer('post', 'rs')">Post to resource server</button>
+        	<button onclick="sendToServer('put', 'rs')">Put to resource server</button>
+        	<button onclick="sendToServer('delete', 'rs')">Delete to resource server</button>
         </div>
         <div style="margin-top:20px">
-        	these button will post to non-client proxy:
-        	<button onclick="sendToDirectServer()">POST to httpbin</button>
+        	these buttons will post to non-client proxy (/api/httpbin):
+        	<button onclick="sendToServer('get', 'httpbin')">GET to httpbin</button>
+        	<button onclick="sendToServer('post', 'httpbin')">POST to httpbin</button>
+        	<button onclick="sendToServer('put', 'httpbin')">PUT to httpbin</button>
+        	<button onclick="sendToServer('delete', 'httpbin')">DELETE to httpbin</button>
         </div>
     </body>
 </html>

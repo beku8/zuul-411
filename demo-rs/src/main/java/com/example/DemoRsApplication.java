@@ -31,4 +31,9 @@ public class DemoRsApplication {
 	public String echoPost(@RequestBody String body){
 		return body;
 	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.DELETE)
+	public String echoDelete(@RequestBody String body){
+		return body;
+	}
 }

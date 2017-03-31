@@ -17,4 +17,4 @@ eureka:
     appname: z411
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${eurekaUrl:http://localhost:8761/eureka/}
