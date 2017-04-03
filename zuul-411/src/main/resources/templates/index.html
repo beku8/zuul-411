@@ -21,21 +21,43 @@
     	}
 		$.ajax(req);
     }
+    
+    function sendToFeign(method) {
+    	var req = {
+	   		    type: method,
+	   		    url: "/feign/rs",
+	   		    contentType: "application/json",
+	   		    success: function(result) {
+	   		    	console.log('result', result)
+	   		    },
+    		}
+       	if (method !== 'get'){
+       		req.data = JSON.stringify(data);
+       	}
+   		$.ajax(req);
+    }
     </script>
     <body>
     	<div>
-    		these buttons will post to eureka clients (/api/rs): 
+    		Send requests to eureka clients (/api/rs): 
     		<button onclick="sendToServer('get', 'rs')">Get to resource server</button>
         	<button onclick="sendToServer('post', 'rs')">Post to resource server</button>
         	<button onclick="sendToServer('put', 'rs')">Put to resource server</button>
         	<button onclick="sendToServer('delete', 'rs')">Delete to resource server</button>
         </div>
         <div style="margin-top:20px">
-        	these buttons will post to non-client proxy (/api/httpbin):
+        	Send requests to non-client proxy (/api/httpbin):
         	<button onclick="sendToServer('get', 'httpbin')">GET to httpbin</button>
         	<button onclick="sendToServer('post', 'httpbin')">POST to httpbin</button>
         	<button onclick="sendToServer('put', 'httpbin')">PUT to httpbin</button>
         	<button onclick="sendToServer('delete', 'httpbin')">DELETE to httpbin</button>
+        </div>
+        <div style="margin-top:20px">
+        	Send requests to feign client (/feign/rs):
+        	<button onclick="sendToFeign('get')">GET to feign</button>
+        	<button onclick="sendToFeign('post')">POST to feign</button>
+        	<button onclick="sendToFeign('put')">PUT to feign</button>
+        	<button onclick="sendToFeign('delete')">DELETE to feign</button>
         </div>
     </body>
 </html>
