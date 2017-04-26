@@ -9,7 +9,7 @@
     function sendToServer(method, endpoint){
     	var req = {
   		    type: method,
-  		    url: "/api/" + endpoint + "/" + method,
+  		    url: "/api/" + endpoint + "/" + method + '?foo=bar',
   		    contentType: "application/json",
   		    success: function(result) {
   		    	console.log('result', result)
