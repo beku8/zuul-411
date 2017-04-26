@@ -23,17 +23,17 @@ public class DemoRsApplication {
 	}
 	
 	@RequestMapping(value="/put", method=RequestMethod.PUT)
-	public String echoPut(@RequestBody String body){
+	public String echoPut(@RequestBody(required = false) String body){
 		return body;
 	}
 	
 	@RequestMapping(value="/post", method=RequestMethod.POST)
-	public String echoPost(@RequestBody String body){
+	public String echoPost(@RequestBody(required = false) String body){
 		return body;
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.DELETE)
-	public String echoDelete(@RequestBody String body){
+	public String echoDelete(@RequestBody(required = false) String body){
 		return body;
 	}
 }
